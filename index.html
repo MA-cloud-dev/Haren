@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="探索鸡蛋的多种美味做法，从经典水煮蛋到创意料理，让您的餐桌更加丰富多彩。">
+    <title>🥚 鸡蛋的美味做法 | Egg Recipes</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --warm-gradient: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            --egg-yellow: #FFD93D;
+            --egg-white: #FFF8E7;
+            --text-dark: #2d3436;
+            --text-light: #636e72;
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --shadow-soft: 0 10px 40px rgba(0, 0, 0, 0.1);
+            --shadow-hover: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            min-height: 100vh;
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        /* 动态背景装饰 */
+        .bg-decoration {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .floating-egg {
+            position: absolute;
+            font-size: 3rem;
+            opacity: 0.15;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .floating-egg:nth-child(1) { top: 10%; left: 5%; animation-delay: 0s; }
+        .floating-egg:nth-child(2) { top: 20%; right: 10%; animation-delay: 1s; }
+        .floating-egg:nth-child(3) { top: 60%; left: 15%; animation-delay: 2s; }
+        .floating-egg:nth-child(4) { top: 80%; right: 20%; animation-delay: 3s; }
+        .floating-egg:nth-child(5) { top: 40%; right: 5%; animation-delay: 4s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(10deg); }
+        }
+
+        /* 头部样式 */
+        header {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 60px 20px 40px;
+        }
+
+        .logo {
+            font-size: 5rem;
+            margin-bottom: 20px;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            font-weight: 300;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        /* 主要内容区 */
+        main {
+            position: relative;
+            z-index: 10;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .recipes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        /* 卡片样式 */
+        .recipe-card {
+            background: var(--card-bg);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: var(--shadow-soft);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+        }
+
+        .recipe-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .recipe-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: var(--primary-gradient);
+        }
+
+        .recipe-card:nth-child(2)::before {
+            background: var(--secondary-gradient);
+        }
+
+        .recipe-card:nth-child(3)::before {
+            background: var(--warm-gradient);
+        }
+
+        .recipe-card:nth-child(4)::before {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+        }
+
+        .recipe-card:nth-child(5)::before {
+            background: linear-gradient(135deg, #ee0979 0%, #ff6a00 100%);
+        }
+
+        .recipe-card:nth-child(6)::before {
+            background: linear-gradient(135deg, #4776E6 0%, #8E54E9 100%);
+        }
+
+        .card-header {
+            padding: 30px 25px 20px;
+            text-align: center;
+        }
+
+        .card-icon {
+            font-size: 4rem;
+            margin-bottom: 15px;
+            display: inline-block;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+        }
+
+        .difficulty {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 5px 15px;
+            background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .card-body {
+            padding: 0 25px 25px;
+        }
+
+        .ingredients {
+            background: linear-gradient(135deg, #fff9e6 0%, #fff3cd 100%);
+            border-radius: 16px;
+            padding: 18px;
+            margin-bottom: 18px;
+        }
+
+        .ingredients h4 {
+            font-size: 0.95rem;
+            color: var(--text-light);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .ingredients ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .ingredients li {
+            background: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .steps {
+            padding: 0 5px;
+        }
+
+        .steps h4 {
+            font-size: 0.95rem;
+            color: var(--text-light);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .step-item {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            align-items: flex-start;
+        }
+
+        .step-number {
+            width: 28px;
+            height: 28px;
+            background: var(--primary-gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.85rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .step-text {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--text-dark);
+            padding-top: 3px;
+        }
+
+        .tip-box {
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            border-radius: 12px;
+            padding: 15px;
+            margin-top: 15px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .tip-box span:first-child {
+            font-size: 1.2rem;
+        }
+
+        .tip-box p {
+            font-size: 0.85rem;
+            color: #2e7d32;
+            line-height: 1.5;
+        }
+
+        /* 页脚 */
+        footer {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 50px 20px;
+            color: var(--text-light);
+        }
+
+        footer p {
+            font-size: 0.95rem;
+        }
+
+        footer .heart {
+            color: #e74c3c;
+            animation: heartbeat 1s ease-in-out infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .logo {
+                font-size: 4rem;
+            }
+
+            .subtitle {
+                font-size: 1rem;
+            }
+
+            .recipes-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 背景装饰 -->
+    <div class="bg-decoration">
+        <div class="floating-egg">🥚</div>
+        <div class="floating-egg">🍳</div>
+        <div class="floating-egg">🥚</div>
+        <div class="floating-egg">🍳</div>
+        <div class="floating-egg">🥚</div>
+    </div>
+
+    <!-- 头部 -->
+    <header>
+        <div class="logo">🥚</div>
+        <h1>鸡蛋的美味做法</h1>
+        <p class="subtitle">
+            鸡蛋是厨房里最百搭的食材之一，富含优质蛋白质和多种营养。<br>
+            让我们一起探索几种经典又美味的鸡蛋料理吧！
+        </p>
+    </header>
+
+    <!-- 主要内容 -->
+    <main>
+        <div class="recipes-grid">
+            <!-- 水煮蛋 -->
+            <article class="recipe-card">
+                <div class="card-header">
+                    <div class="card-icon">🥚</div>
+                    <h2 class="card-title">水煮蛋</h2>
+                    <span class="difficulty">⭐ 入门级</span>
+                </div>
+                <div class="card-body">
+                    <div class="ingredients">
+                        <h4>📝 所需食材</h4>
+                        <ul>
+                            <li>鸡蛋 2个</li>
+                            <li>清水 适量</li>
+                            <li>盐 少许</li>
+                        </ul>
+                    </div>
+                    <div class="steps">
+                        <h4>👨‍🍳 制作步骤</h4>
+                        <div class="step-item">
+                            <span class="step-number">1</span>
+                            <p class="step-text">将鸡蛋放入锅中，加入冷水没过鸡蛋</p>
+                        </div>
+                        <div class="step-item">
+                            <span class="step-number">2</span>
+                            <p class="step-text">加入少许盐，大火煮开后转小火</p>
+                        </div>
+                        <div class="step-item">
+                            <span class="step-number">3</span>
+                            <p class="step-text">煮8-10分钟即可，冷水浸泡更易剥壳</p>
+                        </div>
+                    </div>
+                    <div class="tip-box">
+                        <span>💡</span>
+                        <p>溏心蛋煮6分钟，全熟蛋煮10分钟</p>
+                    </div>
+                </div>
+            </article>
+
+            <!-- 煎蛋 -->
+            <article class="recipe-card">
+                <div class="card-header">
+                    <div class="card-icon">🍳</div>
+                    <h2 class="card-title">香煎荷包蛋</h2>
+                    <span class="difficulty">⭐ 入门级</span>
+                </div>
+                <div class="card-body">
+                    <div class="ingredients">
+                        <h4>📝 所需食材</h4>
+                        <ul>
+                            <li>鸡蛋 1个</li>
+                            <li>食用油 适量</li>
+                            <li>盐 少许</li>
+                            <li>黑胡椒 少许</li>
+                        </ul>
+                    </div>
+                    <div class="steps">
+                        <h4>👨‍🍳 制作步骤</h4>
+                        <div class="step-item">
+                            <span class="step-number">1</span>
+                            <p class="step-text">平底锅加热，倒入少许油润锅</p>
+                        </div>
+                        <div class="step-item">
+                            <span class="step-number">2</span>
+                            <p class="step-text">油温五成热时打入鸡蛋，小火慢煎</p>
+                        </div>
+                        <div class="step-item">
+                            <span class="step-number">3</span>
+                            <p class="step-text">撒上盐和黑胡椒，煎至蛋白凝固即可</p>
+                        </div>
+                    </div>
+                    <div class="tip-box">
+                        <span>💡</span>
+                        <p>全程小火，避免蛋白焦糊影响口感</p>
+                    </div>
+                </div>
+            </article>
+
+            <!-- 蒸蛋 -->
+            <article class="recipe-card">
+                <div class="card-header">
+                    <div class="card-icon">🍮</div>
+                    <h2 class="card-title">嫩滑蒸蛋</h2>
+                    <span class="difficulty">⭐⭐ 简单</span>
+                </div>
+                <div class="card-body">
+                    <div class="ingredients">
+                        <h4>📝 所需食材</h4>
+                        <ul>
+                            <li>鸡蛋 2个</li>
+                            <li>温水 150ml</li>
+                            <li>生抽 1勺</li>
+                            <li>香油 少许</li>
+                            <li>葱花 适量</li>
+                        </ul>
+                    </div>
+                    <div class="steps">
+                        <h4>👨‍🍳 制作步骤</h4>
+                        <div class="step-item">
+                            <span class="step-number">1</span>
+                            <p class="step-text">鸡蛋打散，加入1.5倍温水搅匀</p>
+                        </div>
+                        <div class="step-item">
+                            <span class="step-number">2</span>
+                            <p class="step-text">过滤蛋液，去除气泡，盖上保鲜膜</p>
+                        </div>
+                        <div class="step-item">
+                            <span class="step-number">3</span>
+                            <p class="step-text">水开后中火蒸12分钟，淋上调料即可</p>
+                        </div>
+                    </div>
+                    <div class="tip-box">
+                        <span>💡</span>
+                        <p>用温水打蛋液，蒸出来更嫩滑无孔</p>
+                    </div>
+                </div>
+            </article>
+
+            <!-- 炒蛋 -->
+            <article class="recipe-card">
+                <div class="card-header">
+                    <div class="card-icon">🥘</div>
+                    <h2 class="card-title">番茄炒蛋</h2>
+                    <span class="difficulty">⭐⭐ 简单</span>
+                </div>
+                <div class="card-body">
+                    <div class="ingredients">
+                        <h4>📝 所需食材</h4>
+                        <ul>
+                            <li>鸡蛋 3个</li>
+                            <li>番茄 2个</li>
+                            <li>白糖 1勺</li>
+                            <li>盐 适量</li>
+                            <li>葱花 适量</li>
+                        </ul>
+                    </div>
+                    <div class="steps">
+                        <h4>👨‍🍳 制作步骤</h4>
+                        <div class="step-item">
+                            <span class="step-number">1</span>
+                            <p class="step-text">番茄切块，鸡蛋加盐打散备用</p>
+                        </div>
+                        <div class="step-item">
+                            <span class="step-number">2</span>
+                            <p class="step-text">热锅多油，快炒鸡蛋成块盛出</p>
+                        </div>
+                        <div class="step-item">
+                            <span class="step-number">3</span>
+                            <p class="step-text">炒软番茄，加糖调味，倒回鸡蛋翻炒</p>
+                        </div>
+                    </div>
+                    <div class="tip-box">
+                        <span>💡</span>
+                        <p>加少许糖可以中和番茄的酸味，更加美味</p>
+                    </div>
+                </div>
+            </article>
+
+            <!-- 蛋饼 -->
+            <article class="recipe-card">
+                <div class="card-header">
+                    <div class="card-icon">🫓</div>
+                    <h2 class="card-title">葱香蛋饼</h2>
+                    <span class="difficulty">⭐⭐ 简单</span>
+                </div>
+                <div class="card-body">
+                    <div class="ingredients">
+                        <h4>📝 所需食材</h4>
+                        <ul>
+                            <li>鸡蛋 2个</li>
+                            <li>面粉 50g</li>
+                            <li>葱花 适量</li>
+                            <li>盐 少许</li>
+                            <li>清水 80ml</li>
+                        </ul>
+                    </div>
+                    <div class="steps">
+                        <h4>👨‍🍳 制作步骤</h4>
+                        <div class="step-item">
+                            <span class="step-number">1</span>
+                            <p class="step-text">面粉加水调成面糊，打入鸡蛋搅匀</p>
+                        </div>
+                        <div class="step-item">
+                            <span class="step-number">2</span>
+                            <p class="step-text">加入葱花和盐，搅拌均匀</p>
+                        </div>
+                        <div class="step-item">
+                            <span class="step-number">3</span>
+                            <p class="step-text">平底锅刷油，倒入面糊摊平煎至两面金黄</p>
+                        </div>
+                    </div>
+                    <div class="tip-box">
+                        <span>💡</span>
+                        <p>面糊要稀一点，这样煎出来的蛋饼更薄更脆</p>
+                    </div>
+                </div>
+            </article>
+
+            <!-- 茶叶蛋 -->
+            <article class="recipe-card">
+                <div class="card-header">
+                    <div class="card-icon">🫖</div>
+                    <h2 class="card-title">五香茶叶蛋</h2>
+                    <span class="difficulty">⭐⭐⭐ 中等</span>
+                </div>
+                <div class="card-body">
+                    <div class="ingredients">
+                        <h4>📝 所需食材</h4>
+                        <ul>
+                            <li>鸡蛋 6个</li>
+                            <li>红茶 15g</li>
+                            <li>生抽 3勺</li>
+                            <li>老抽 1勺</li>
+                            <li>八角 2个</li>
+                            <li>桂皮 1小块</li>
+                        </ul>
+                    </div>
+                    <div class="steps">
+                        <h4>👨‍🍳 制作步骤</h4>
+                        <div class="step-item">
+                            <span class="step-number">1</span>
+                            <p class="step-text">鸡蛋煮熟，轻轻敲出裂纹</p>
+                        </div>
+                        <div class="step-item">
+                            <span class="step-number">2</span>
+                            <p class="step-text">锅中加水、茶叶、香料和调料煮开</p>
+                        </div>
+                        <div class="step-item">
+                            <span class="step-number">3</span>
+                            <p class="step-text">放入鸡蛋小火煮30分钟，浸泡过夜更入味</p>
+                        </div>
+                    </div>
+                    <div class="tip-box">
+                        <span>💡</span>
+                        <p>裂纹越多，茶香和味道越容易渗透进去</p>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer>
+        <p>用 <span class="heart">❤️</span> 制作 | 祝您烹饪愉快！</p>
+    </footer>
+</body>
+</html>
